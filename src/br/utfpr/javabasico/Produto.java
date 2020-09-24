@@ -7,6 +7,7 @@ public class Produto {
 	private String nomeProduto;
 	private int numUnidadeEstoque;
 	private double precoUnitario;
+	private boolean ativo = true;
 
 	// Construtor padrão sem argumentos.
 	public Produto() {
@@ -47,6 +48,7 @@ public class Produto {
 
 	public void setNumUnidadeEstoque(int numUnidadeEstoque) {
 		this.numUnidadeEstoque = numUnidadeEstoque;
+		
 	}
 	//O Método acima altera a quantidade de Produtos no Estoque.
 	
@@ -60,12 +62,30 @@ public class Produto {
 	}
 	//O Método acima altera o preço unitário do Produto.
 	
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	
+	public String getStatus() {
+		return isAtivo() ? "Ativo" : "Descontinuado";
+	}
+	
+	public double getValorEstoque() {
+		return this.getNumUnidadeEstoque() * this.getPrecoUnitario();
+	}
+
 	@Override
 	public String toString() {
 		return "Número do Item       : " + this.getNumeroItem()        + "\r\n" + 
 			   "Nome                 : " + this.getNomeProduto()       + "\r\n" + 
 			   "Quantidade em estoque: " + this.getNumUnidadeEstoque() + "\r\n" + 
-			   "Preço                : " + this.getPrecoUnitario()     + "\r\n" + 
+			   "Preço                : " + this.getPrecoUnitario()     + "\r\n" +
+			   "Valor do Estoque     : " + this.getValorEstoque()     + "\r\n" +
+			   "Status do Produto    : " + this.getStatus()            + "\r\n" +
 			   "";
 	}
 }
