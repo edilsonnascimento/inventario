@@ -1,6 +1,5 @@
 package br.utfpr.javabasico;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class ProductTester {
@@ -10,6 +9,12 @@ public class ProductTester {
 	static double tempPrice;
 	static int maxSize = -1;
 	static Scanner in = new Scanner(System.in);
+	static String tempArtista;
+	static int tempQuantidadeMusica;
+	static String tempSelo;
+	static int tempDuracaoMinutos;
+	static int tempClassificaoEtaria;
+	static String tempEstudioCinematografico;
 	
 	public static int  getProductNumber(Produto[] produtos, Scanner in) {
 		boolean continua = true;
@@ -23,11 +28,8 @@ public class ProductTester {
 		while(continua) {			
 			try {
 				productChoice = in.nextInt();
-				if( (productChoice == 0) || (productChoice == 1)) {
-					continua = false;
-				}else if (productChoice < maxArray) {
-					continua = false;
-				}
+				if( (productChoice >= 0) && (productChoice < maxArray))					
+					continua = false;					
 			} catch (Exception e) {
 				System.out.println("Tipo incorreto de dados inserido!");
 				in.nextLine();				
@@ -116,20 +118,76 @@ public class ProductTester {
 		in.close();
 	}//end method main
 
-	public static void addToInventory(Produto[] produtos, Scanner in) {
+	
+	public static void addCDToInventory(Produto[] produtos, Scanner in) {
 		
 		for (int i = 0; i < maxSize; i++) {
 			in.nextLine();
 			System.out.println();
-			System.out.print("Entre com o código do Produto: ");
-			tempNumber = in.nextLong();
-			System.out.print("Entre com a descrição do Produto: ");
+			System.out.println("Insira o nome do CD: ");
 			tempName = in.next();
-			System.out.print("Entre com a quantidade em estoque do Produto: ");
+			System.out.println("Insira o nome do artista :");
+			tempArtista = in.next();
+			System.out.println("Insira o nome do selo de gravação :");
+			tempSelo = in.next();
+			System.out.println("Insira o número de músicas: ");
+			tempQuantidadeMusica = in.nextInt();
+			System.out.println("Insira a quantidade em estoque para este produto: ");
 			tempQty = in.nextInt();
-			System.out.print("Entre com o preço do Produto: ");
+			System.out.println("Insira o preço para este produto :");
 			tempPrice = in.nextDouble();
-			produtos[i] = new Produto(tempNumber, tempName, tempQty, tempPrice);
+			System.out.println("Insira o número do item :");
+			tempNumber = in.nextLong();
+			produtos[i] = new CD(tempNumber, tempName, tempQty, tempPrice, tempArtista, tempQuantidadeMusica, tempSelo);
+		}
+	}
+	
+	public static void addDVDToInventory(Produto[] produtos, Scanner in) {
+		
+		for (int i = 0; i < maxSize; i++) {
+			in.nextLine();
+			System.out.println();
+			System.out.println("Insira o nome do DVD: ");
+			tempName = in.next();
+			System.out.println("Insira o nome do estúdio cinematográfico: ");
+			tempEstudioCinematografico = in.next();
+			System.out.println("Insira a classificação etária: ");
+			tempClassificaoEtaria = in.nextInt();
+			System.out.println("Insira a duração em minutos: ");
+			tempDuracaoMinutos = in.nextInt();
+			System.out.println("Insira a quantidade em estoque para este produto: ");
+			tempQty = in.nextInt();
+			System.out.println("Insira o preço para este produto: ");
+			tempPrice = in.nextDouble();
+			System.out.println("Insira o número de item: ");
+			tempNumber = in.nextLong();
+			produtos[i] = new DVD(tempNumber, tempName, tempQty, tempPrice, tempDuracaoMinutos, tempClassificaoEtaria, tempEstudioCinematografico);			
+		}
+	}
+	
+	public static void addToInventory(Produto[] produtos, Scanner in) {
+		boolean continua = true;
+		int stockChoice = 0;
+		
+		System.out.println("1: CD "                     + "\r\n" +
+		                   "2: DVD"                     + "\r\n" +
+				           "Insira o tipo de produto: " + "\r\n" +
+				            "");
+		while(continua) {
+			try {
+				stockChoice = in.nextInt();
+				if((stockChoice == 1) || (stockChoice == 2)) continua = false;		
+			} catch (Exception e) {
+				System.out.println("Tipo incorreto de dados inserido!");
+				in.nextLine();
+			}
+		}//end while
+		
+		switch (stockChoice) {
+			case 1 : addCDToInventory(produtos, in);			
+			         break;
+			case 2 : addDVDToInventory(produtos, in);
+				     break;
 		}
 	}
 

@@ -10,7 +10,11 @@ public class Produto {
 	private boolean ativo = true;
 
 	public void addToInventory(int quantidade) {
-		this.setNumUnidadeEstoque(this.getNumUnidadeEstoque() + quantidade); 
+		if(this.isAtivo()) {
+			this.setNumUnidadeEstoque(this.getNumUnidadeEstoque() + quantidade);
+		}else {			
+			System.out.println("Produto " + this.getNomeProduto() + " não pode ser adicionado por estar com status: " + this.getStatus());
+		}
 	}
 	
 	public void deductFromInventory(int quantidade) {
