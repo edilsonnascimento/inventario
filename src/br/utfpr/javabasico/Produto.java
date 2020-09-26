@@ -9,6 +9,14 @@ public class Produto {
 	private double precoUnitario;
 	private boolean ativo = true;
 
+	public void addToInventory(int quantidade) {
+		this.setNumUnidadeEstoque(this.getNumUnidadeEstoque() + quantidade); 
+	}
+	
+	public void deductFromInventory(int quantidade) {
+		this.setNumUnidadeEstoque(this.getNumUnidadeEstoque() - quantidade);
+	}
+	
 	// Construtor padrão sem argumentos.
 	public Produto() {
 	}
@@ -77,7 +85,8 @@ public class Produto {
 	public double getValorEstoque() {
 		return this.getNumUnidadeEstoque() * this.getPrecoUnitario();
 	}
-
+	
+	
 	@Override
 	public String toString() {
 		return "Número do Item       : " + this.getNumeroItem()        + "\r\n" + 
